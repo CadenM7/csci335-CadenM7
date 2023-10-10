@@ -24,6 +24,7 @@ public class Knn<V, L> implements Classifier<V, L> {
     public L classify(V value) {
         // TODO: Find the distance from value to each element of data. Use Histogram.getPluralityWinner()
         //  to find the most popular label.
+        Histogram.getPluralityWinner(data);
         return null;
     }
 

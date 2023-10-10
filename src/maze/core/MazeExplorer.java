@@ -45,15 +45,17 @@ public class MazeExplorer {
 		ArrayList<MazeExplorer> result = new ArrayList<MazeExplorer>();
 		for(int i = 0; i < Direction.values().length; i++) {
 			Pos value = Direction.values()[i].successor(getLocation());
-			MazeExplorer create = new MazeExplorer(getM(), value);
-			result.add(i, create);
-			/* Build Maze Explorers and add to result */
-			/* Add Treasure found to the sucussors found */
+			if(m.within(value) && !m.blocked(value,getLocation())){
+				MazeExplorer create = new MazeExplorer(getM(), value);
+				result.add(create);
+			}
 		}
-		// TODO: It should add as a successor every adjacent, unblocked neighbor square.
-		// I added a comment for demonstration purposes.
-        return result;
+		return result;
 	}
+	// TODO: It should add as a successor every adjacent, unblocked neighbor square.
+	// I added a comment for demonstration purposes.
+	/* Build Maze Explorers and add to result */
+	/* Add Treasure found to the sucussors found */
 	
 	public void addTreasures(Collection<Pos> treasures) {
 		treasureFound.addAll(treasures);
