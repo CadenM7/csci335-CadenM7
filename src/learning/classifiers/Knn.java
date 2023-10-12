@@ -20,12 +20,22 @@ public class Knn<V, L> implements Classifier<V, L> {
         this.distance = distance;
     }
 
+
+    // TODO: Find the distance from value to each element of data. Use Histogram.getPluralityWinner()
+    //  to find the most popular label.
     @Override
     public L classify(V value) {
-        // TODO: Find the distance from value to each element of data. Use Histogram.getPluralityWinner()
-        //  to find the most popular label.
-        Histogram.getPluralityWinner(data);
-        return null;
+        PriorityQueue<Storage<L>> s = new PriorityQueue<>();
+        for(int i = 0; i < data.size(); i++) {
+            double d = distance.applyAsDouble(value, data.get(i).getFirst());
+            s.add(new Storage<>(data.get(i).getSecond(), d));
+        }
+        Histogram<L> label = new Histogram<>();
+        for(int i = 0; i < k; i++) {
+            Storage<L> r = s.remove();
+            label.bump(r.label);
+        }
+        return label.getPluralityWinner();
     }
 
     @Override
