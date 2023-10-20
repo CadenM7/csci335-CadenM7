@@ -31,7 +31,7 @@ public class Knn<V, L> implements Classifier<V, L> {
             s.add(new Storage<>(data.get(i).getSecond(), d));
         }
         Histogram<L> label = new Histogram<>();
-        for(int i = 0; i < k; i++) {
+        for(int i = 0; i < k && !s.isEmpty(); i++) {
             Storage<L> r = s.remove();
             label.bump(r.label);
         }
@@ -40,6 +40,8 @@ public class Knn<V, L> implements Classifier<V, L> {
 
     @Override
     public void train(ArrayList<Duple<V, L>> training) {
-        // TODO: Add all elements of training to data.
+        for(int i = 0; i < training.size();i++ ) {
+            data.add(training.get(i));
+        }
     }
 }
