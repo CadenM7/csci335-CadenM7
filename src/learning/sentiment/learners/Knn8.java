@@ -1,10 +1,10 @@
 package learning.sentiment.learners;
 
 import learning.classifiers.Knn;
-import learning.handwriting.core.Drawing;
+import learning.core.Histogram;
 
-public class Knn8 extends Knn<Drawing,String> {
+public class Knn8 extends Knn<Histogram<String>,String> {
     public Knn8() {
-        super(8, (d1, d2) -> (double)d1.distance(d2));
+        super(8, Histogram::cosineDistance);
     }
 }

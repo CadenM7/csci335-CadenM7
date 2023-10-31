@@ -27,7 +27,13 @@ public class DTInterior<V, L, F, FV extends Comparable<FV>> implements DecisionT
 
 	@Override
 	public L classify(V v) {
-		return null;
+		L label;
+		if(getFeatureValue.apply(v, decisionFeature).compareTo(maxFeatureValue) > 0) {
+			label = right.classify(v);
+		} else {
+			label = left.classify(v);
+		}
+		return label;
 	}
 
 	// TODO: If the targeted decisionFeature is less than or equal to the maxFeatureValue, ask the left subtree.
