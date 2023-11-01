@@ -77,8 +77,6 @@ public class DTTrainer<V,L, F, FV extends Comparable<FV>> {
 					maxFeatureValue = feat.get(i).getSecond();
 				}
 			}
-			DecisionTree<V,L,F,FV> bestFirst = train(best.getFirst());
-			DecisionTree<V,L,F,FV> bestSecond = train(best.getSecond());
 
 			if (best.getFirst().isEmpty()) {
 				L label = mostPopularLabelFrom(best.getSecond());
@@ -88,6 +86,9 @@ public class DTTrainer<V,L, F, FV extends Comparable<FV>> {
 				L label = mostPopularLabelFrom(best.getFirst());
 				return new DTLeaf<>(label);
 			}
+			DecisionTree<V,L,F,FV> bestFirst = train(best.getFirst());
+			DecisionTree<V,L,F,FV> bestSecond = train(best.getSecond());
+
 			return new DTInterior<>(decisionFeature, maxFeatureValue,bestFirst, bestSecond, getFeatureValue, successor);
 		}
 	}
